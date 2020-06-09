@@ -18,38 +18,38 @@ KATI_SRC_PATH := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
 # Set defaults if they weren't set by the including Makefile
 KATI_CXX ?= $(CXX)
 KATI_LD ?= $(CXX)
-KATI_INTERMEDIATES_PATH ?= .
+KATI_INTERMEDIATES_PATH ?= obj
 KATI_BIN_PATH ?= .
 
 KATI_CXX_SRCS := \
-	affinity.cc \
-	command.cc \
-	dep.cc \
-	eval.cc \
-	exec.cc \
-	expr.cc \
-	file.cc \
-	file_cache.cc \
-	fileutil.cc \
-	find.cc \
-	flags.cc \
-	func.cc \
-	io.cc \
-	log.cc \
-	main.cc \
-	ninja.cc \
-	parser.cc \
-	regen.cc \
-	rule.cc \
-	stats.cc \
-	stmt.cc \
-	string_piece.cc \
-	stringprintf.cc \
-	strutil.cc \
-	symtab.cc \
-	thread_pool.cc \
-	timeutil.cc \
-	var.cc
+	src/affinity.cc \
+	src/command.cc \
+	src/dep.cc \
+	src/eval.cc \
+	src/exec.cc \
+	src/expr.cc \
+	src/file.cc \
+	src/file_cache.cc \
+	src/fileutil.cc \
+	src/find.cc \
+	src/flags.cc \
+	src/func.cc \
+	src/io.cc \
+	src/log.cc \
+	src/main.cc \
+	src/ninja.cc \
+	src/parser.cc \
+	src/regen.cc \
+	src/rule.cc \
+	src/stats.cc \
+	src/stmt.cc \
+	src/string_piece.cc \
+	src/stringprintf.cc \
+	src/strutil.cc \
+	src/symtab.cc \
+	src/thread_pool.cc \
+	src/timeutil.cc \
+	src/var.cc
 
 KATI_CXX_GENERATED_SRCS := \
 	version.cc
@@ -70,8 +70,8 @@ KATI_CXX_TEST_OBJS := $(patsubst $(KATI_SRC_PATH)/%.cc,$(KATI_INTERMEDIATES_PATH
 KATI_CXX_TEST_EXES := $(patsubst $(KATI_INTERMEDIATES_PATH)/%.o,$(KATI_BIN_PATH)/%,\
 	$(KATI_CXX_TEST_OBJS))
 
-KATI_CXXFLAGS := -g -W -Wall -MMD -MP
-KATI_CXXFLAGS += -O -DNOLOG
+KATI_CXXFLAGS := -g -W -Wall -MMD -MP -Iinclude
+KATI_CXXFLAGS += -O -DNOLOG 
 KATI_CXXFLAGS += -march=native
 #KATI_CXXFLAGS += -pg
 
@@ -125,6 +125,7 @@ ckati_clean:
 	rm -rf $(KATI_INTERMEDIATES_PATH)/ckati
 	rm -rf $(KATI_INTERMEDIATES_PATH)/*.o
 	rm -rf $(KATI_INTERMEDIATES_PATH)/*.d
+	rm -rf $(KATI_INTERMEDIATES_PATH)/src/*
 	rm -rf $(KATI_INTERMEDIATES_PATH)/version.cc
 	rm -rf $(KATI_CXX_TEST_EXES)
 	rm -rf out

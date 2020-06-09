@@ -13,6 +13,8 @@
 # limitations under the License.
 
 all: ckati ckati_tests
+ccache= $(shell which ccache)
+CXX=$(ccache) clang++
 
 include Makefile.kati
 include Makefile.ckati
